@@ -51,15 +51,19 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-//               '<action:[\]>'=>'category',
-//                '<action:[]>'=>'category/<action>'
+                'index.php'=>'orders\index.php'
+//               '<action:\w+>'=>'site/<action>',
+//                '<action:[category]>'=>'category/<action>'
 //                '<controller>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
 
     ],
+
+    'defaultRoute' => 'orders/index',
     'params' => $params,
 ];
+
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
