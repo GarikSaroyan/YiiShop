@@ -69,7 +69,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
+    public function actionStore()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -81,7 +81,7 @@ class SiteController extends Controller
         }
 
         $model->password = '';
-        return $this->render('login', [
+        return $this->render('store', [
             'model' => $model,
         ]);
     }
@@ -126,10 +126,10 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionCategory()
-    {
-        return $this->render('category');
-    }
+//    public function actionCategory()
+//    {
+//        return $this->render('category');
+//    }
 
     public function actionTarget()
     {
