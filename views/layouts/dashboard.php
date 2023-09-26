@@ -12,7 +12,7 @@ $this->registerCssFile("@web/css/dashboard.css", [], 'css-print-theme');
     <ul class="nav">
         <li><a href="/"><i class="fa fa-windows"></i>Orders</a></li>
         <li ><a href="/about"><i class="fa fa-shopping-bag"></i>Order Item</a></li>
-        <li><a href="/contact"><i class="fa fa-pie-chart"></i>Product</a></li>
+        <li><a href="/product"><i class="fa fa-pie-chart"></i>Product</a></li>
         <li><a href="/login"><i class="fa fa-cube"></i>Store</a></li>
         <li ><a href="/category"><i class="fa fa-database"></i>Category</a></li>
         <li><a href="/target"><i class="fa fa-tag"></i>Target</a></li>

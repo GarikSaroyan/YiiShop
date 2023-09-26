@@ -103,7 +103,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
+    public function actionProduct()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
@@ -111,7 +111,7 @@ class SiteController extends Controller
 
             return $this->refresh();
         }
-        return $this->render('contact', [
+        return $this->render('product', [
             'model' => $model,
         ]);
     }
