@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Store;
 use app\models\Target;
 use app\models\TargetSearch;
 use yii\web\Controller;
@@ -76,9 +77,11 @@ class TargetController extends Controller
         } else {
             $model->loadDefaultValues();
         }
+        $storeName = Store::find()->all();
 
         return $this->render('create', [
             'model' => $model,
+            'storeName' =>compact('storeName'),
         ]);
     }
 
