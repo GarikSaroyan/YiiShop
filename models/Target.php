@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $date
- * @property string $storName
+ * @property string $storeName
  */
 class Target extends \yii\db\ActiveRecord
 {

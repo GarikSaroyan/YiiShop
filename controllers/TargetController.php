@@ -77,11 +77,11 @@ class TargetController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-        $storeName = Store::find()->all();
+        $storeName = Store::find()->asArray()->all();
 
         return $this->render('create', [
             'model' => $model,
-            'storeName' =>compact('storeName'),
+            'storeName' => $storeName,
         ]);
     }
 
@@ -99,9 +99,10 @@ class TargetController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $storeName = Store::find()->asArray()->all();
         return $this->render('update', [
             'model' => $model,
+            'storeName' => $storeName,
         ]);
     }
 
