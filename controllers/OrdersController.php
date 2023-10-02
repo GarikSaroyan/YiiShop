@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Orders;
+use app\models\OrderItemsSearch;
 use app\models\OrdersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -60,6 +61,11 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function actionAlert()
+    {
+        return $this->render('alert');
+    }
+
     /**
      * Creates a new Orders model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -68,6 +74,8 @@ class OrdersController extends Controller
     public function actionCreate()
     {
         $model = new Orders();
+        $searchModel = new OrderItemsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -79,6 +87,8 @@ class OrdersController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
