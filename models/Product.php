@@ -24,19 +24,18 @@ class Product extends \yii\db\ActiveRecord
     {
         return '{{%product}}';
     }
-
     /**
      * {@inheritdoc}
      */
+
     public function rules()
     {
         return [
             [['name', 'description', 'img', 'price', 'categoryId', 'cost'], 'required'],
             [['price', 'categoryId', 'cost'], 'integer'],
-            [['name', 'description', 'img'], 'string', 'max' => 225],
+            [['name', 'description'], 'string', 'max' => 225],
         ];
     }
-
     /**
      * {@inheritdoc}
      */

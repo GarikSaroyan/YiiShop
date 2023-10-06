@@ -21,6 +21,7 @@ class ProductSearch extends Product
             [['name', 'description', 'img'], 'safe'],
         ];
     }
+    public $file;
 
     /**
      * {@inheritdoc}
@@ -70,4 +71,8 @@ class ProductSearch extends Product
 
         return $dataProvider;
     }
-}
+ }
+?>
+
+
+

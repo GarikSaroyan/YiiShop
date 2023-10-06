@@ -4,9 +4,11 @@ namespace app\controllers;
 
 use app\models\Product;
 use app\models\ProductSearch;
+use yii\helpers\Console;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -30,7 +32,6 @@ class ProductController extends Controller
             ]
         );
     }
-
     /**
      * Lists all Product models.
      *
@@ -69,18 +70,27 @@ class ProductController extends Controller
     {
         $model = new Product();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($this->request->ispost) {
+            $img = $model->img;
+            $imageName = $model->img;
+            $model->img = UploadedFile::getInstance($model,'img');
+            $model->img->saveAs('image/'.$imageName.$model->img->extension);
+            $model->img = $imageName.$model->img->extension;
+            $model->name = $_POST['Product']['name'];
+            $model->description = $_POST['Product']['description'];
+            $model->price =  $_POST['Product']['price'];
+            $model->categoryId = $_POST['Product']['categoryId'];
+            $model->cost = $_POST['Product']['cost'];
+            //echo '<pre>';
+            //var_dump($model);
+            $model->save();
         } else {
             $model->loadDefaultValues();
         }
-
         return $this->render('create', [
-            'model' => $model,
+           'model' => $model,
         ]);
-    }
+  }
 
     /**
      * Updates an existing Product model.
@@ -89,19 +99,24 @@ class ProductController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
+     public function actionUpdate(int $id){
+         $model = $this->findModel($id);
+         if ($this->request->ispost) {
+             $model->name = $_POST['Product']['name'];
+             $model->description = $_POST['Product']['description'];
+             $model->price =  $_POST['Product']['price'];
+             $model->categoryId = $_POST['Product']['categoryId'];
+             $model->cost = $_POST['Product']['cost'];
+             \Yii::$app->getSession()->setFlash('message','Post Update Successfully');
+             $model->save();
+         } else {
+             $model->loadDefaultValues();
+         }
+         return $this->render('Update', [
+             'model' => $model,
+         ]);
+     }
     /**
      * Deletes an existing Product model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -109,10 +124,9 @@ class ProductController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+   public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

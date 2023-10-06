@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -28,22 +27,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
             'description',
-            'img',
+                //  'img',
+                [
+                    'label' => 'img',
+                    'format' => 'html',
+                    'value' => function($model) {
+                    var_dump($model->img);
+                    return "<img src='web/image/$model->img' alt style='width: 50px'>";
+                    },
+                ],
             'price',
-            //'categoryId',
-            //'cost',
+            'categoryId',
+            'cost',
             [
+                //$model->img.
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
-    ]); ?>
-
-
+     ]);
+    ?>
 </div>

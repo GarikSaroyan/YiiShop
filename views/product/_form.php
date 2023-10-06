@@ -16,7 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
+    <!-- $form->field($model, 'img')->textInput(['maxlength' => true]) -->
+
+    <?= $form->field($model, 'img')->fileInput(['maxlength' => true]); ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
 
@@ -26,6 +28,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+<!--        --><?php //= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
