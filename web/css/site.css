@@ -87,3 +87,9 @@ a.desc:after {
 .form-group {
     margin-bottom: 1rem;
 }
+
+.userForm{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+}

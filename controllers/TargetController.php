@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Store;
 use app\models\Target;
 use app\models\TargetSearch;
 use yii\web\Controller;
@@ -76,9 +77,11 @@ class TargetController extends Controller
         } else {
             $model->loadDefaultValues();
         }
+        $storeName = Store::find()->asArray()->all();
 
         return $this->render('create', [
             'model' => $model,
+            'storeName' => $storeName,
         ]);
     }
 
@@ -96,9 +99,10 @@ class TargetController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $storeName = Store::find()->asArray()->all();
         return $this->render('update', [
             'model' => $model,
+            'storeName' => $storeName,
         ]);
     }
 

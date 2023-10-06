@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $date
- * @property int $storId
+ * @property string $storeName
  */
 class Target extends \yii\db\ActiveRecord
 {
@@ -27,8 +27,8 @@ class Target extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'storId'], 'required'],
-            [['date', 'storId'], 'integer'],
+            [['date', 'storeName'], 'required'],
+            [['storeName'], 'string', 'max' => 225],
         ];
     }
 
@@ -40,7 +40,7 @@ class Target extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Date',
-            'storId' => 'Stor ID',
+            'storeName' => 'Store Name',
         ];
     }
 }

@@ -12,11 +12,30 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-<!--    --><?php //= $form->field($model,'file')->fileInput(); ?>
-
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+<!--<pre>-->
+    <!--    --><?php //= $form->field($model, 'parentId')->textInput() ?>
+    <?php
+    $item = \app\models\Category::find()->asArray()->all();
+    $arr =[];
+    foreach ($item as $it){
+        if ($it['parentId']==''){
+            $arrIt=[$it['id']=>$it['name']];
+            foreach ($item as $x){
+                if ($x['parentId']==$it['id']){
+                    $arrIt += array($x['id'] => $x['name']);
+                }
+            }
+            $arr += array($it['name'] => $arrIt);
+        }
+    }
 
-<!--    --><?php //= $form->field($model, 'img')->fileInput(); ?>
+    ?>
+    <?= $form->field($model, 'parentId')->dropDownList(
+        $arr,
+        ['prompt' => 'Main Category']
+    );
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
