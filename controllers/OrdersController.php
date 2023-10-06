@@ -5,9 +5,12 @@ namespace app\controllers;
 use app\models\Orders;
 use app\models\OrderItemsSearch;
 use app\models\OrdersSearch;
+use app\models\Product;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use function React\Promise\all;
 
 /**
  * OrdersController implements the CRUD actions for Orders model.
@@ -61,11 +64,6 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function actionAlert()
-    {
-        return $this->render('alert');
-    }
-
     /**
      * Creates a new Orders model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -90,6 +88,10 @@ class OrdersController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionCreateOrder(){
+        var_dump('sxxss');
     }
 
     /**
@@ -124,6 +126,15 @@ class OrdersController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGetProductDb()
+    {
+//        var_dump(Product::findAll());
+        $arr=ArrayHelper::toArray(Product::findAll($_POST['id']));
+        return json_encode($arr);
+
+//        return $this->render('');
     }
 
     /**

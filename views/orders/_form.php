@@ -28,8 +28,6 @@ foreach ($storeName as $item) {
 
     <?php $form = ActiveForm::begin(['options' => ['class' => 'userForm']]); ?>
 
-    <!--    --><?php //= $form->field($model, '')->textInput() ?>
-
     <?= $form->field($model, 'storeId')->dropDownList(
         $arr,
         ['prompt' => 'Select a Store']
@@ -37,13 +35,8 @@ foreach ($storeName as $item) {
     ?>
 
     <?= $form->field($model, 'addCount')->textInput(['placeholder' => 'Title', 'disabled' => true]) ?>
-    <!---->
-    <?= $form->field($model, 'totalPrice')->textInput(['placeholder' => 'Title', 'disabled' => true]) ?>
 
-<!---->
-<!--    <div class="form-group">-->
-<!--        --><?php //= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-<!--    </div>-->
+    <?= $form->field($model, 'totalPrice')->textInput(['placeholder' => 'Title', 'disabled' => true]) ?>
 
 
     <?php ActiveForm::end(); ?>
@@ -55,8 +48,8 @@ foreach ($storeName as $item) {
             <?php
             Modal::begin([
                 'title' => 'Products',
-                'toggleButton' => ['label' => 'Add','class'=>'btn btn-primary'],
-                'size'=>'modal-lg',
+                'toggleButton' => ['label' => 'Add', 'class' => 'btn btn-primary'],
+                'size' => 'modal-lg',
             ]);
 
             echo $this->render('alert');
@@ -66,32 +59,41 @@ foreach ($storeName as $item) {
         </div>
 
 
+        <!--        --><?php //= GridView::widget([
+        //            'dataProvider' => $dataProvider,
+        //            'filterModel' => $searchModel,
+        //            'columns' => [
+        //                ['class' => 'yii\grid\SerialColumn'],
+        //
+        //                'id',
+        //                'orderId',
+        //                'addCount',
+        //                'price',
+        //                'productId',
+        //                'revenue',
+        //                'cost',
+        //            ],
+        //        ]); ?>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+                <th scope="col">Count</th>
+                <th scope="col">Cost</th>
+            </tr>
+            </thead>
 
 
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+            <tbody id="ordersBody"></tbody>
+        </table>
 
-                'id',
-                'orderId',
-                'addCount',
-                'price',
-                'productId',
-                'revenue',
-                'cost',
-//                [
-//                    'class' => ActionColumn::className(),
-//                    'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
-//                        return Url::toRoute([$action, 'id' => $model->id]);
-//                    }
-//                ],
-            ],
-        ]); ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <Button id="btn-success-order" class ='btn btn-success'>Save</Button>
         </div>
 
     </div>
