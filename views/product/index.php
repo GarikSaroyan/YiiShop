@@ -35,8 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'img',
                     'format' => 'html',
                     'value' => function($model) {
-                    var_dump($model->img);
-                    return "<img src='web/image/$model->img' alt style='width: 50px'>";
+                    return "<img src='".Yii::getAlias('@web')."image/$model->img' alt style='width: 50px'>";
                     },
                 ],
             'price',
