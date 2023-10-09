@@ -30,7 +30,10 @@ foreach ($storeName as $item) {
 
     <?= $form->field($model, 'storeId')->dropDownList(
         $arr,
-        ['prompt' => 'Select a Store']
+        [
+            'prompt' => 'Select a Store',
+//            'onchange' => '$("#orders-storeid").val(this.value);'
+        ]
     );
     ?>
 
@@ -93,7 +96,7 @@ foreach ($storeName as $item) {
 
 
         <div class="form-group">
-            <Button id="btn-success-order" class ='btn btn-success'>Save</Button>
+            <Button id="btn-success-order" class='btn btn-success'>Save</Button>
         </div>
 
     </div>

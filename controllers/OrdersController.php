@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\OrderItems;
 use app\models\Orders;
 use app\models\OrderItemsSearch;
 use app\models\OrdersSearch;
 use app\models\Product;
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -90,8 +92,31 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function actionCreateOrder(){
-        var_dump('sxxss');
+    public function actionCreateOrder()
+    {
+
+        $model = new Orders();
+        $model->storeId = $_POST['storeId'];
+        $model->totalPrice = $_POST['totalPrice'];
+        $model->addCount = $_POST['addCount'];
+        $model->date = date('y-m-d h-m-s');
+        $model->save();
+
+        $insert_id = $model->getDb()->getLastInsertId();
+
+        foreach ($_POST['newData'] as $item) {
+
+            $modelItem = new OrderItems();
+            $modelItem->orderId = $insert_id;
+            $modelItem->productId = $item['id'];
+            $modelItem->addCount = $item['count'];
+            $modelItem->price = $item['price'];
+            $modelItem->revenue = ($item['price'] - $item['cost']) * $item['count'];
+            $modelItem->cost = $item['cost'];
+            $modelItem->save();
+
+        }
+
     }
 
     /**
@@ -131,7 +156,7 @@ class OrdersController extends Controller
     public function actionGetProductDb()
     {
 //        var_dump(Product::findAll());
-        $arr=ArrayHelper::toArray(Product::findAll($_POST['id']));
+        $arr = ArrayHelper::toArray(Product::findAll($_POST['id']));
         return json_encode($arr);
 
 //        return $this->render('');

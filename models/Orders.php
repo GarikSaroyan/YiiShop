@@ -23,6 +23,10 @@ class Orders extends \yii\db\ActiveRecord
         return 'orders';
     }
 
+    public static function app()
+    {
+    }
+
     /**
      * {@inheritdoc}
      */

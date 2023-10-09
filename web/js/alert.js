@@ -12,6 +12,8 @@ for (let i = 0; i < a.length; i++) {
     })
 }
 let newData
+let totalPrice = 0
+let addCount = 0
 document.getElementById('btn-success').addEventListener('click', () => {
 
     const body = document.getElementById('alertBody')
@@ -54,9 +56,7 @@ document.getElementById('btn-success').addEventListener('click', () => {
                 return item
             })
             newData=data
-            console.log(data)
-            let totalPrice = 0
-            let addCount = 0
+
             let html = data.map((item, index) => {
                 addCount += +item.count
                 totalPrice += item.count * item.price
@@ -82,19 +82,28 @@ document.getElementById('btn-success').addEventListener('click', () => {
 })
 
 document.getElementById('btn-success-order').addEventListener("click", () => {
-    // console.log('aaaa')
-    console.log(newData)
-    $.ajax({
-        url: 'create-order',
-        type: "POST",
-        dataType: "html",
-        data: {
-            newData
-        },
-        success: function (data) {
-            // data = JSON.parse(data)
-            console.log(data)
-        }
-    })
+    let storeId =$('#orders-storeid').val()
+    if (storeId){
+        $.ajax({
+            url: 'create-order',
+            type: "POST",
+            dataType: "html",
+            data: {
+                newData,
+                storeId,
+                totalPrice,
+                addCount,
+            },
+            success: function (data) {
+                window.location = 'index';
+            },
+            statusCode: {
+                500: function() {
+                    alert( "Error :: add orders" );
+                }
+            }
+        })
+    }
+
 })
 
