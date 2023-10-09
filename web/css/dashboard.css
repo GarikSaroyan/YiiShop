@@ -20,10 +20,17 @@ body {
 
 .sidebar {
     position: relative;
-    width: 15%;
+    width: 200px;
     float: left;
     background: var(--blue);
     height: 100vh;
+}
+.sidebarFixed{
+    position: fixed;
+    width: 200px;
+    float: left;
+    background: var(--blue);
+    height:  100vh;
 }
 
 .main {
