@@ -56,6 +56,8 @@ document.getElementById('btn-success').addEventListener('click', () => {
                 return item
             })
             newData=data
+            totalPrice = 0
+            addCount = 0
 
             let html = data.map((item, index) => {
                 addCount += +item.count
