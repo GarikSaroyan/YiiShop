@@ -25,12 +25,14 @@ body {
     background: var(--blue);
     height: 100vh;
 }
-.sidebarFixed{
+
+.sidebarFixed {
+    padding:0 8px ;
     position: fixed;
     width: 200px;
     float: left;
     background: var(--blue);
-    height:  100vh;
+    height: 100vh;
 }
 
 .main {
@@ -43,7 +45,8 @@ body {
 .logo {
     text-align: center;
     color: var(--white);
-    margin-top: 50px;
+    margin-top: 75px;
+    font-size:35px;
     font-weight: 800;
     margin-bottom: 50px;
 }
@@ -313,6 +316,25 @@ table th {
     }
 }
 
+
+.table-scroll tbody {
+    position: relative;
+    overflow-y: scroll;
+    height: 250px;
+}
+
+.table-scroll tr {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-scroll thead > tr > th {
+    border: none;
+}
+
+
+
+
 .active-tr {
     background: var(--blue);
     color: var(--white);
@@ -320,4 +342,10 @@ table th {
 
 .active-tr .ticon {
     background: #e5e5e54f;
+}
+
+.datePicker{
+    max-width: 100%;
+    border-style: dotted;
+    padding: 5px;
 }

@@ -113,6 +113,7 @@ class OrdersController extends Controller
             $modelItem->price = $item['price'];
             $modelItem->revenue = ($item['price'] - $item['cost']) * $item['count'];
             $modelItem->cost = $item['cost'];
+            $modelItem->storeId = $_POST['storeId'];
             $modelItem->save();
 
         }

@@ -37,6 +37,18 @@ class ComposerStaticInitb28fc499e0678d03aa60688c1361d49d
             'yii\\bootstrap5\\' => 15,
             'yii\\' => 4,
         ),
+        'p' => 
+        array (
+            'practically\\chartjs\\' => 20,
+        ),
+        'o' => 
+        array (
+            'onmotion\\apexcharts\\' => 20,
+        ),
+        'e' => 
+        array (
+            'exocet\\yii2\\chart\\' => 18,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
@@ -133,6 +145,18 @@ class ComposerStaticInitb28fc499e0678d03aa60688c1361d49d
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'practically\\chartjs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/practically/yii2-chartjs/src',
+        ),
+        'onmotion\\apexcharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/onmotion/yii2-widget-apexcharts',
+        ),
+        'exocet\\yii2\\chart\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/exocet/yii2-chart-widget/src',
         ),
         'cebe\\markdown\\' => 
         array (

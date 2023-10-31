@@ -17,7 +17,7 @@ class TargetSearch extends Target
     public function rules()
     {
         return [
-            [['id', 'date'], 'integer'],
+            [['id', 'date','price'], 'integer'],
             [['storeName'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class TargetSearch extends Target
         $query->andFilterWhere([
             'id' => $this->id,
             'date' => $this->date,
+            'price' => $this->price,
         ]);
 
         $query->andFilterWhere(['like', 'storeName', $this->storeName]);

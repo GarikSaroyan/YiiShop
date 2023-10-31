@@ -1,4 +1,3 @@
-let nam = document.getElementById('typeNumber2')
 
 let a = document.querySelectorAll('input[type="checkbox"]')
 
@@ -14,6 +13,8 @@ for (let i = 0; i < a.length; i++) {
 let newData
 let totalPrice = 0
 let addCount = 0
+
+
 document.getElementById('btn-success').addEventListener('click', () => {
 
     const body = document.getElementById('alertBody')
@@ -21,10 +22,17 @@ document.getElementById('btn-success').addEventListener('click', () => {
 
     let arr = []
 
+
     for (let i = 0; i < y.length; i++) {
         for (let x = 0; x < y[i].getElementsByTagName('td').length; x++) {
-            if (y[i].getElementsByTagName('td')[x].innerHTML.search('checked') != "-1") {
+            // console.log(y[i].getElementsByTagName('td')[x].innerHTML)
+            // console.log(typeof y[i].getElementsByTagName('td')[x].innerHTML)
+            //
+            // console.log(y[i].getElementsByTagName('td')[x].innerHTML.search('checked'))
 
+
+            if (y[i].getElementsByTagName('td')[x].innerHTML.search('checked') != "-1") {
+                // console.log(y[i].getElementsByTagName('td')[x].innerHTML)
                 let l = y[i].getElementsByTagName('td')[x + 2].innerHTML.substr(y[i].getElementsByTagName('td')[x + 2].innerHTML.search('value') + 6, 6)
 
                 if (document.getElementById(`typeNumber${y[i].getElementsByTagName('td')[x - 1].innerHTML}`).value != 0) {
@@ -83,8 +91,42 @@ document.getElementById('btn-success').addEventListener('click', () => {
     });
 })
 
+let intp=document.getElementById('searchName')
+intp.addEventListener('input',()=>{
+    const y =  document.getElementById('alertBody').getElementsByTagName("tr");
+    const alertBody = document.getElementById('alertBody')
+    for (let i=0;i<y.length;i++){
+        for (let x = 0; x < y[i].getElementsByTagName('td').length; x++){
+            if (y[i].getElementsByTagName('td')[x].innerHTML===intp.value){
+                // console.log(y[i].getElementsByTagName('td')[x-2].innerHTML)
+                // console.log(y[i].getElementsByTagName('td')[x-1].innerHTML)
+                // console.log(y[i].getElementsByTagName('td')[x].innerHTML)
+                let html= `
+                <tr>
+                    <td scope='row'>${y[i].getElementsByTagName('td')[x - 2].innerHTML}</td>
+                    <td><input  type='checkbox' aria-label='Checkbox for following text input'></td>
+                    <td>${y[i].getElementsByTagName('td')[x].innerHTML}</td>
+                    <td><input type='number' id='typeNumber${y[i].getElementsByTagName('td')[x - 2].innerHTML}' class='form-control' name="count[]"/></td>
+                </tr>
+                `
+                alertBody.innerHTML=html
+
+            }else{
+
+            }
+
+        }
+    }
+    // console.log(intp.value)
+})
+
+
+let storeId =$('#orders-storeid').val()
+// console.log(storeId)
+
 document.getElementById('btn-success-order').addEventListener("click", () => {
     let storeId =$('#orders-storeid').val()
+
     if (storeId){
         $.ajax({
             url: 'create-order',

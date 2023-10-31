@@ -58,4 +58,22 @@ return array (
       '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
     ),
   ),
+  'exocet/yii2-chart-widget' => 
+  array (
+    'name' => 'exocet/yii2-chart-widget',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@exocet/yii2/chart' => $vendorDir . '/exocet/yii2-chart-widget/src',
+    ),
+  ),
+  'onmotion/yii2-widget-apexcharts' => 
+  array (
+    'name' => 'onmotion/yii2-widget-apexcharts',
+    'version' => '1.0.8.0',
+    'alias' => 
+    array (
+      '@onmotion/apexcharts' => $vendorDir . '/onmotion/yii2-widget-apexcharts',
+    ),
+  ),
 );

@@ -27,7 +27,7 @@ class Target extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'storeName'], 'required'],
+            [['date', 'storeName','price'], 'required'],
             [['storeName'], 'string', 'max' => 225],
         ];
     }
@@ -41,6 +41,7 @@ class Target extends \yii\db\ActiveRecord
             'id' => 'ID',
             'date' => 'Date',
             'storeName' => 'Store Name',
+            'price'=>'Price'
         ];
     }
 }

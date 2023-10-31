@@ -14,7 +14,7 @@ use yii\jui\DatePicker;
 <div class="target-form">
 
     <?php $form = ActiveForm::begin(); ?>
-<!--    <pre>-->
+    <!--    <pre>-->
     <?php
     $arr = [];
     foreach ($storeName as $item) {
@@ -22,18 +22,24 @@ use yii\jui\DatePicker;
     }
     ?>
 
-        <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
-            //'language' => 'ru',
-            'dateFormat' => 'yyyy-MM-dd',
-            'clientOptions' => ['class' => 'form-control']
-        ]) ?>
+    <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
+        //'language' => 'ru',
+        'dateFormat' => 'yyyy-MM-dd',
+        'clientOptions' => ['class' => 'form-control','autocomplete'=>'off'],
+        'options' => [
+            'placeholder' => 'Выберите дату...',
+            'autocomplete' => 'off',
+        ],
 
-        <?= $form->field($model, 'storeName')->dropDownList(
-            $arr,
-            ['prompt' => 'Select a Course']
-        );
-        ?>
+    ]) ?>
 
+    <?= $form->field($model, 'storeName')->dropDownList(
+        $arr,
+        ['prompt' => 'Select a Course']
+    );
+    ?>
+
+    <?= $form->field($model, 'price')->textInput() ?>
 
 
     <div class="form-group">

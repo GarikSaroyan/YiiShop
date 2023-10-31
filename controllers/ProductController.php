@@ -81,9 +81,12 @@ class ProductController extends Controller
             $model->price =  $_POST['Product']['price'];
             $model->categoryId = $_POST['Product']['categoryId'];
             $model->cost = $_POST['Product']['cost'];
-            //echo '<pre>';
-            //var_dump($model);
-            $model->save();
+//            echo '<pre>';
+//            var_dump($_POST);
+//            $model->save();
+            return $this->goHome();
+
+
         } else {
             $model->loadDefaultValues();
         }

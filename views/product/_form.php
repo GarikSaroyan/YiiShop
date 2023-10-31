@@ -22,7 +22,28 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->textInput() ?>
 
-    <?= $form->field($model, 'categoryId')->textInput() ?>
+    <?php
+    $item = \app\models\Category::find()->asArray()->all();
+    $arr =[];
+    foreach ($item as $it){
+        if ($it['parentId']==''){
+            $arrIt=[$it['id']=>$it['name']];
+            foreach ($item as $x){
+                if ($x['parentId']==$it['id']){
+                    $arrIt += array($x['id'] => $x['name']);
+                }
+            }
+            $arr += array($it['name'] => $arrIt);
+        }
+    }
+    ?>
+
+
+    <?= $form->field($model, 'categoryId')->dropDownList(
+        $arr,
+        ['prompt' => 'Main Category']
+    );
+    ?>
 
     <?= $form->field($model, 'cost')->textInput() ?>
 

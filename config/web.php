@@ -51,7 +51,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'index.php'=>'orders\index.php'
+                'index.php'=>'site\about.php',
 //               '<action:\w+>'=>'site/<action>',
 //                '<action:[category]>'=>'category/<action>'
 //                '<controller>/<action:\w+>' => '<controller>/<action>'
@@ -60,7 +60,7 @@ $config = [
 
     ],
 
-    'defaultRoute' => 'orders/index',
+    'defaultRoute' => 'site/about',
     'params' => $params,
 ];
 
