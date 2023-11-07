@@ -1,3 +1,36 @@
+let body = document.getElementById('alertBody')
+let inputSearch = document.getElementById('searchName')
+
+let bodyData = []
+
+function toPrintAlertBody(data) {
+
+    let html = data.map((item, index) => {
+        return `    <tr>
+                         <td class="rowItem">${item['id']}</td>
+                        <td><input  type='checkbox' aria-label='Checkbox for following text input' ${item.count ? 'checked' : ''}/></td>
+                        <td class="nameItem">${item['name']}</td>
+                        <td><input type='number' id='typeNumber${item['id']}' class='form-control' name="count[]" ${item.count ? `value=${item.count}` : ''}  /></td>
+                    </tr>`
+    }).join('')
+    body.innerHTML = html
+
+}
+
+
+document.getElementById('addItem').addEventListener('click', () => {
+    $.ajax({
+        url: 'create-order',
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            bodyData = data
+            toPrintAlertBody(data)
+            inputSearch.value = ''
+        }
+    });
+})
+
 
 let a = document.querySelectorAll('input[type="checkbox"]')
 
@@ -10,44 +43,39 @@ for (let i = 0; i < a.length; i++) {
         }
     })
 }
-let newData
+let newData = []
 let totalPrice = 0
 let addCount = 0
 
+let arrSelectDate = []
 
-document.getElementById('btn-success').addEventListener('click', () => {
+function SelectDate() {
+    arrSelectDate = []
+    $('#alertBody tr').each(function () {
 
-    const body = document.getElementById('alertBody')
-    const y = body.getElementsByTagName("tr");
+        let el_ = $(this);
 
-    let arr = []
-
-
-    for (let i = 0; i < y.length; i++) {
-        for (let x = 0; x < y[i].getElementsByTagName('td').length; x++) {
-            // console.log(y[i].getElementsByTagName('td')[x].innerHTML)
-            // console.log(typeof y[i].getElementsByTagName('td')[x].innerHTML)
-            //
-            // console.log(y[i].getElementsByTagName('td')[x].innerHTML.search('checked'))
-
-
-            if (y[i].getElementsByTagName('td')[x].innerHTML.search('checked') != "-1") {
-                // console.log(y[i].getElementsByTagName('td')[x].innerHTML)
-                let l = y[i].getElementsByTagName('td')[x + 2].innerHTML.substr(y[i].getElementsByTagName('td')[x + 2].innerHTML.search('value') + 6, 6)
-
-                if (document.getElementById(`typeNumber${y[i].getElementsByTagName('td')[x - 1].innerHTML}`).value != 0) {
-                    let arrItem = []
-                    arrItem.push(y[i].getElementsByTagName('td')[x - 1].innerHTML)
-                    arrItem.push(y[i].getElementsByTagName('td')[x + 1].innerHTML)
-                    arrItem.push(document.getElementById(`typeNumber${y[i].getElementsByTagName('td')[x - 1].innerHTML}`).value)
-
-                    arr.push(arrItem)
-                }
+        if (el_.find('[type=checkbox]').is(':checked')) {
+            if (el_.find('[ type=number]').val()) {
+                let id = el_.find(".rowItem").text();
+                let name = el_.find(".nameItem").text();
+                let count = el_.find('[ type=number]').val()
+                arrSelectDate.push({id, name, count})
             }
         }
+    });
+}
+
+function creatOrdersTable(arr) {
+    if (!arr.length) {
+        alert('ERROR :: Please check')
+        return
     }
+
+    const y = body.getElementsByTagName("tr");
+
     let arrId = arr.map((item) => {
-        return item[0]
+        return item['id']
     })
 
     $.ajax({
@@ -60,10 +88,10 @@ document.getElementById('btn-success').addEventListener('click', () => {
         success: function (data) {
             data = JSON.parse(data)
             data = data.map((item, index) => {
-                item.count = arr[index][2]
+                item.count = arr[index]['count']
                 return item
             })
-            newData=data
+            newData = data
             totalPrice = 0
             addCount = 0
 
@@ -89,65 +117,73 @@ document.getElementById('btn-success').addEventListener('click', () => {
 
         }
     });
-})
+}
 
-let intp=document.getElementById('searchName')
-intp.addEventListener('input',()=>{
-    const y =  document.getElementById('alertBody').getElementsByTagName("tr");
-    const alertBody = document.getElementById('alertBody')
-    for (let i=0;i<y.length;i++){
-        for (let x = 0; x < y[i].getElementsByTagName('td').length; x++){
-            if (y[i].getElementsByTagName('td')[x].innerHTML===intp.value){
-                // console.log(y[i].getElementsByTagName('td')[x-2].innerHTML)
-                // console.log(y[i].getElementsByTagName('td')[x-1].innerHTML)
-                // console.log(y[i].getElementsByTagName('td')[x].innerHTML)
-                let html= `
-                <tr>
-                    <td scope='row'>${y[i].getElementsByTagName('td')[x - 2].innerHTML}</td>
-                    <td><input  type='checkbox' aria-label='Checkbox for following text input'></td>
-                    <td>${y[i].getElementsByTagName('td')[x].innerHTML}</td>
-                    <td><input type='number' id='typeNumber${y[i].getElementsByTagName('td')[x - 2].innerHTML}' class='form-control' name="count[]"/></td>
-                </tr>
-                `
-                alertBody.innerHTML=html
+$('#btn-success').click(() => {
+    SelectDate()
+    creatOrdersTable(arrSelectDate)
+});
 
-            }else{
 
-            }
+inputSearch.addEventListener('input', () => {
+    SelectDate()
+    let inputDate = []
 
-        }
+    function filterDate(arr = bodyData) {
+        let filterDate = arr.filter((item) => {
+
+            return arrSelectDate
+                .map((item) => item.id)
+                .includes(item.id.toString()) === false
+        })
+        toPrintAlertBody([...arrSelectDate, ...filterDate])
     }
-    // console.log(intp.value)
+
+
+    if (inputSearch.value.length > 0) {
+
+        inputDate = bodyData.filter((item) => {
+            return item.name.includes(inputSearch.value)
+        })
+        filterDate(inputDate)
+    } else {
+        filterDate()
+    }
+
+
 })
 
-
-let storeId =$('#orders-storeid').val()
-// console.log(storeId)
 
 document.getElementById('btn-success-order').addEventListener("click", () => {
-    let storeId =$('#orders-storeid').val()
+    let storeId = $('#orders-storeid').val()
 
-    if (storeId){
-        $.ajax({
-            url: 'create-order',
-            type: "POST",
-            dataType: "html",
-            data: {
-                newData,
-                storeId,
-                totalPrice,
-                addCount,
-            },
-            success: function (data) {
-                window.location = 'index';
-            },
-            statusCode: {
-                500: function() {
-                    alert( "Error :: add orders" );
+    if (storeId) {
+        if (newData.length) {
+            $.ajax({
+                url: 'create-order',
+                type: "POST",
+                dataType: "html",
+                data: {
+                    newData,
+                    storeId,
+                    totalPrice,
+                    addCount,
+                },
+                success: function (data) {
+                    window.location = 'index';
+                },
+                statusCode: {
+                    500: function () {
+                        alert("Error :: add orders");
+                    },
+                    404: function () {
+                        alert("Error :: add orders");
+                    }
                 }
-            }
-        })
-    }
+            })
+        } else alert("Error :: add orders")
+    } else alert('Choose store')
+
 
 })
 

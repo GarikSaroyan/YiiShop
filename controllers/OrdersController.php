@@ -94,12 +94,17 @@ class OrdersController extends Controller
 
     public function actionCreateOrder()
     {
+        if(Yii::$app->request->isAjax && Yii::$app->request->isGet){
+            $storeName = \app\models\Product::find()->asArray()->all();
+            return json_encode($storeName);
+        }
+
 
         $model = new Orders();
         $model->storeId = $_POST['storeId'];
         $model->totalPrice = $_POST['totalPrice'];
         $model->addCount = $_POST['addCount'];
-        $model->date = date('Y-m-d H-i-s', time() + 60 * 60 * 1);
+        $model->date = date('Y-m-d H-i-s', time() + 60 * 60 );
         $model->save();
 
         $insert_id = $model->getDb()->getLastInsertId();
@@ -178,4 +183,5 @@ class OrdersController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

@@ -25,6 +25,7 @@ class OrderItems extends \yii\db\ActiveRecord
         return 'orderItems';
     }
 
+
     /**
      * {@inheritdoc}
      */
@@ -52,4 +53,12 @@ class OrderItems extends \yii\db\ActiveRecord
             'cost'=>'Cost'
         ];
     }
+
+
+
+    public function getOrders()
+    {
+        return $this->hasOne(Orders::className(), ['id' => 'orderId']);
+    }
+
 }

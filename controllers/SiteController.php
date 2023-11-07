@@ -72,7 +72,7 @@ class SiteController extends Controller
     public function actionStore()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->actionAbout();
         }
 
         $model = new LoginForm();
@@ -126,6 +126,7 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+
 //    public function actionCategory()
 //    {
 //        return $this->render('category');
@@ -135,5 +136,7 @@ class SiteController extends Controller
     {
         return $this->render('target');
     }
+
+
 
 }

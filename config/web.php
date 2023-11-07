@@ -2,6 +2,12 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$isGuest='';
+//if (Yii::$app->user->isGuest){
+//    $isGuest = 'site/store';
+//}else{
+//    $isGuest = 'site/about';
+//}
 
 $config = [
     'id' => 'basic',
@@ -60,7 +66,7 @@ $config = [
 
     ],
 
-    'defaultRoute' => 'site/about',
+    'defaultRoute' => 'site/store',
     'params' => $params,
 ];
 

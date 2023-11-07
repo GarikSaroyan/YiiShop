@@ -51,7 +51,7 @@ foreach ($storeName as $item) {
             <?php
             Modal::begin([
                 'title' => 'Products',
-                'toggleButton' => ['label' => 'Add', 'class' => 'btn btn-primary'],
+                'toggleButton' => ['label' => 'Add', 'class' => 'btn btn-primary','id'=>'addItem'],
                 'size' => 'modal-lg',
             ]);
 

@@ -22,7 +22,8 @@
         "exocet/yii2-chart-widget": "^1.0",
         "practically/yii2-chartjs": "^1.1",
         "bower-asset/chart-js": "^4.4",
-        "onmotion/yii2-widget-apexcharts": "^1.0"
+        "onmotion/yii2-widget-apexcharts": "^1.0",
+      "ext-json": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
