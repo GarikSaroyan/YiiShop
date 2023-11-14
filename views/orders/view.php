@@ -5,6 +5,8 @@ use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var app\models\Orders $model */
+/** @var app\models\OrderItems $dataItems */
+
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['index', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -36,5 +38,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
         ],
     ]) ?>
+    <br>
+    <h3>Orders Item</h3>
+
+    <?php foreach ($dataItems as $item) {
+        echo DetailView::widget([
+            'model' => $item,
+            'attributes' => [
+                'id',
+                'orderId',
+                'productId',
+                'addCount',
+                'price',
+                'revenue',
+                'cost',
+                'storeId',
+
+            ]
+        ]);
+
+        echo '<br><hr><br>';
+    }
+    ?>
+
 
 </div>

@@ -16,6 +16,7 @@ $this->registerCssFile("@web/css/dashboard.css", [], 'css-print-theme');
 
             <ul class="nav">
                 <li><a href="/site/store">Login</a></li>
+                <li><a href="/site/register">Register</a></li>
             </ul>
 
             <?php

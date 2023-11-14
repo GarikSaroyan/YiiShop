@@ -61,8 +61,11 @@ class OrdersController extends Controller
      */
     public function actionView($id)
     {
+        $dataItems = OrderItems::find()->where(['orderId' => $id])->asArray()->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataItems' => $dataItems
         ]);
     }
 
@@ -94,34 +97,37 @@ class OrdersController extends Controller
 
     public function actionCreateOrder()
     {
-        if(Yii::$app->request->isAjax && Yii::$app->request->isGet){
+        if (Yii::$app->request->isAjax && Yii::$app->request->isGet) {
+
             $storeName = \app\models\Product::find()->asArray()->all();
             return json_encode($storeName);
         }
 
+        if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+            $model = new Orders();
+            $model->storeId = $_POST['storeId'];
+            $model->totalPrice = $_POST['totalPrice'];
+            $model->addCount = $_POST['addCount'];
+            $model->date = date('Y-m-d H-i-s', time() + 60 * 60);
+            $model->save();
 
-        $model = new Orders();
-        $model->storeId = $_POST['storeId'];
-        $model->totalPrice = $_POST['totalPrice'];
-        $model->addCount = $_POST['addCount'];
-        $model->date = date('Y-m-d H-i-s', time() + 60 * 60 );
-        $model->save();
+            $insert_id = $model->getDb()->getLastInsertId();
 
-        $insert_id = $model->getDb()->getLastInsertId();
+            foreach ($_POST['newData'] as $item) {
 
-        foreach ($_POST['newData'] as $item) {
+                $modelItem = new OrderItems();
+                $modelItem->orderId = $insert_id;
+                $modelItem->productId = $item['id'];
+                $modelItem->addCount = $item['count'];
+                $modelItem->price = $item['price'];
+                $modelItem->revenue = ($item['price'] - $item['cost']) * $item['count'];
+                $modelItem->cost = $item['cost'];
+                $modelItem->storeId = $_POST['storeId'];
+                $modelItem->save();
 
-            $modelItem = new OrderItems();
-            $modelItem->orderId = $insert_id;
-            $modelItem->productId = $item['id'];
-            $modelItem->addCount = $item['count'];
-            $modelItem->price = $item['price'];
-            $modelItem->revenue = ($item['price'] - $item['cost']) * $item['count'];
-            $modelItem->cost = $item['cost'];
-            $modelItem->storeId = $_POST['storeId'];
-            $modelItem->save();
-
+            }
         }
+
 
     }
 
@@ -134,6 +140,8 @@ class OrdersController extends Controller
      */
     public function actionUpdate($id)
     {
+
+
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -143,6 +151,39 @@ class OrdersController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionUpdateItem(){
+
+        Yii::$app->db->createCommand()
+            ->update('orders',
+                ['storeId' =>  $_POST['storeId'],'addCount' =>  $_POST['addCount'],'totalPrice' =>  $_POST['totalPrice']],
+                ['id' => $_POST['id']],
+            )
+            ->execute();
+
+        Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('orderItems', ['orderId' => $_POST['id']])
+            ->execute();
+
+        foreach ($_POST['newData'] as $item) {
+
+            $modelItem = new OrderItems();
+            $modelItem->orderId = $_POST['id'];
+            $modelItem->productId = $item['id'];
+            $modelItem->addCount = $item['count'];
+            $modelItem->price = $item['price'];
+            $modelItem->revenue = ($item['price'] - $item['cost']) * $item['count'];
+            $modelItem->cost = $item['cost'];
+            $modelItem->storeId = $_POST['storeId'];
+            $modelItem->save();
+
+        }
+
+            return json_encode($_POST);
+
     }
 
     /**
@@ -159,13 +200,18 @@ class OrdersController extends Controller
         return $this->redirect(['index']);
     }
 
+
+    public function actionGetOrderItems()
+    {
+            $storeName = OrderItems::find()->where(['orderId' => $_POST['id']])->asArray()->all();
+            return json_encode($storeName);
+    }
+
+
     public function actionGetProductDb()
     {
-//        var_dump(Product::findAll());
         $arr = ArrayHelper::toArray(Product::findAll($_POST['id']));
         return json_encode($arr);
-
-//        return $this->render('');
     }
 
     /**

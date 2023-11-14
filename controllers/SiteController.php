@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -75,9 +76,10 @@ class SiteController extends Controller
             return $this->actionAbout();
         }
 
+
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goHome();
         }
 
         $model->password = '';
@@ -137,6 +139,45 @@ class SiteController extends Controller
         return $this->render('target');
     }
 
+    /**
+     * @throws Exception
+     */
+    public function actionRegister()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->actionAbout();
+        }
+
+        $model = new \app\models\Users();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $_POST['Users']['firstName']) {
+                $model->firstName = $_POST['Users']['firstName'];
+                $model->lastName = $_POST['Users']['lastName'];
+                $model->userName = $_POST['Users']['userName'];
+                $hash = Yii::$app->getSecurity()->generatePasswordHash($_POST['Users']['password']);
+                $model->password = $hash;
+                $model->authKey = Yii::$app->security->generateRandomString();;
+
+
+                if ($model->save()) {
+                    $model->save();
+                } else {
+                    echo "MODEL NOT SAVED";
+                    print_r($model->getAttributes());
+                    print_r($model->getErrors());
+                    die();
+                    exit;
+                }
+
+                // form inputs are valid, do something here
+                return $this->redirect(array('site/store'));
+            }
+        }
+
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
 
 
 }
