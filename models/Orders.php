@@ -46,7 +46,7 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'storeId' => 'Store ID',
+            'storeId' => 'Store',
             'addCount' => 'Add Count',
             'totalPrice' => 'Total Price',
             'date' => 'Date',

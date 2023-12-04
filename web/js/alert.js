@@ -1,4 +1,3 @@
-console.log(window.location.pathname)
 
 if (window.location.pathname === '/orders/create' || window.location.pathname ==='/orders/update') {
 
@@ -231,7 +230,6 @@ if (window.location.pathname === '/orders/create' || window.location.pathname ==
                 addCount,)
             if (newData.length) {
                 if (myParam) {
-                    console.log('sksec')
                     $.ajax({
                         url: 'update-item',
                         type: "POST",

@@ -46,6 +46,9 @@ class OrdersController extends Controller
     {
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->setSort([
+            'defaultOrder' => ['id'=>SORT_DESC],
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -61,11 +64,14 @@ class OrdersController extends Controller
      */
     public function actionView($id)
     {
-        $dataItems = OrderItems::find()->where(['orderId' => $id])->asArray()->all();
+        $searchModel = new OrderItemsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
 
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'dataItems' => $dataItems
+            'dataItems' => $dataProvider,
+            'searchModel'=>$searchModel,
         ]);
     }
 

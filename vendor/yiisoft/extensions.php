@@ -76,4 +76,31 @@ return array (
       '@onmotion/apexcharts' => $vendorDir . '/onmotion/yii2-widget-apexcharts',
     ),
   ),
+  'richardfan1126/yii2-sortable-gridview' => 
+  array (
+    'name' => 'richardfan1126/yii2-sortable-gridview',
+    'version' => '0.0.2.0',
+    'alias' => 
+    array (
+      '@richardfan/sortable' => $vendorDir . '/richardfan1126/yii2-sortable-gridview',
+    ),
+  ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => '3.0.5.0',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base/src',
+    ),
+  ),
+  'kartik-v/yii2-sortable' => 
+  array (
+    'name' => 'kartik-v/yii2-sortable',
+    'version' => '1.2.2.0',
+    'alias' => 
+    array (
+      '@kartik/sortable' => $vendorDir . '/kartik-v/yii2-sortable/src',
+    ),
+  ),
 );

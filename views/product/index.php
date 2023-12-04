@@ -41,7 +41,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
             'price',
-            'categoryId',
+            [
+                'label' => 'Category',
+                'attribute' => 'categoryId',
+                'content' => function ($model) {
+                    if (\app\models\Category::find()->where(['id' => $model->categoryId])->one()) {
+                        return \app\models\Category::find()->where(['id' => $model->categoryId])->one()->name;
+                    }
+                    return $model->categoryId;
+                }
+            ],
             'cost',
             [
                 //$model->img.

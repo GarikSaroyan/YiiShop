@@ -37,6 +37,10 @@ class ComposerStaticInitb28fc499e0678d03aa60688c1361d49d
             'yii\\bootstrap5\\' => 15,
             'yii\\' => 4,
         ),
+        'r' => 
+        array (
+            'richardfan\\sortable\\' => 20,
+        ),
         'p' => 
         array (
             'practically\\chartjs\\' => 20,
@@ -44,6 +48,12 @@ class ComposerStaticInitb28fc499e0678d03aa60688c1361d49d
         'o' => 
         array (
             'onmotion\\apexcharts\\' => 20,
+        ),
+        'k' => 
+        array (
+            'kartik\\sortable\\' => 16,
+            'kartik\\grid\\' => 12,
+            'kartik\\base\\' => 12,
         ),
         'e' => 
         array (
@@ -146,6 +156,10 @@ class ComposerStaticInitb28fc499e0678d03aa60688c1361d49d
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
+        'richardfan\\sortable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/richardfan1126/yii2-sortable-gridview',
+        ),
         'practically\\chartjs\\' => 
         array (
             0 => __DIR__ . '/..' . '/practically/yii2-chartjs/src',
@@ -153,6 +167,18 @@ class ComposerStaticInitb28fc499e0678d03aa60688c1361d49d
         'onmotion\\apexcharts\\' => 
         array (
             0 => __DIR__ . '/..' . '/onmotion/yii2-widget-apexcharts',
+        ),
+        'kartik\\sortable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-sortable/src',
+        ),
+        'kartik\\grid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-grid/src',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
         ),
         'exocet\\yii2\\chart\\' => 
         array (

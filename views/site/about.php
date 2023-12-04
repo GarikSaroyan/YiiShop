@@ -71,8 +71,11 @@ if (isset($_GET['from']) && $_GET['from']) {
     $toDate = $_GET['to'];
     $true = \app\models\Target::find()->where(['between', 'date', $fromDate, $toDate])->asArray()->all();
     if (!empty($true)) {
+        \app\models\Target::find()->where(['between', 'date', $fromDate, $toDate])->asArray()->all() &&
         $targetDate = \app\models\Target::find()->where(['between', 'date', $fromDate, $toDate])->asArray()->all();
-        $orders = \app\models\Orders::find()->where(['between', 'date', $fromDate, $toDate])->asArray()->all();
+        \app\models\Orders::find()->where(['between', 'date', $fromDate, $toDate])->asArray()->all()
+        &&  $orders = \app\models\Orders::find()->where(['between', 'date', $fromDate, $toDate])->asArray()->all();
+
     }
 
 }

@@ -28,7 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'storeId',
+            [
+                'attribute' => 'storeId',
+                'content' => function ($model) {
+                    return \app\models\Store::find()->where(['id' => $model->storeId])->one()->name;
+                }
+            ],
             'addCount',
             'totalPrice',
             'date',
@@ -36,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

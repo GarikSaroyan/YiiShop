@@ -4,6 +4,9 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\CategorySearch;
+use richardfan\sortable\SortableAction;
+use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -44,6 +47,7 @@ class CategoryController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
         ]);
     }
 
@@ -131,4 +135,24 @@ class CategoryController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actions()
+    {
+        return [
+            'sortItem' => [
+                'class' => SortableAction::className(),
+//                'activeRecordClassName' => Articles::className(),
+                'orderColumn' => 'sortOrder',
+            ],
+            // your other actions
+        ];
+    }
+
+    public function actionGetProduct()
+    {
+        $arr = Category::find()->asArray()->all();
+        return json_encode($arr);
+    }
+
+
 }

@@ -42,7 +42,9 @@ class OrderItemsSearch extends OrderItems
     public function search($params)
     {
         $query = OrderItems::find();
-
+        if ($params && $params['id']){
+            $query->where(['orderId' => $params['id']]) ;
+        }
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

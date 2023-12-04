@@ -1,7 +1,17 @@
 {
     "name": "yiisoft/yii2-app-basic",
     "description": "Yii 2 Basic Project Template",
-    "keywords": ["yii2", "framework", "basic", "project template"],
+    "keywords": [
+        "yii2",
+        "framework",
+        "basic",
+        "project template"
+    ],
+    "autoload": {
+        "psr-4": {
+            "kartik\\grid\\": "vendor/kartik-v/yii2-grid/src"
+        }
+    },
     "homepage": "https://www.yiiframework.com/",
     "type": "project",
     "license": "BSD-3-Clause",
@@ -23,7 +33,9 @@
         "practically/yii2-chartjs": "^1.1",
         "bower-asset/chart-js": "^4.4",
         "onmotion/yii2-widget-apexcharts": "^1.0",
-      "ext-json": "*"
+        "ext-json": "*",
+        "richardfan1126/yii2-sortable-gridview": "*",
+        "kartik-v/yii2-sortable": "^1.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -40,7 +52,7 @@
     },
     "config": {
         "allow-plugins": {
-            "yiisoft/yii2-composer" : true
+            "yiisoft/yii2-composer": true
         },
         "process-timeout": 1800,
         "fxp-asset": {
